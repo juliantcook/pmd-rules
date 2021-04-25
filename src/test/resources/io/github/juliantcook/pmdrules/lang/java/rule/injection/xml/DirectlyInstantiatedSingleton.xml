@@ -33,4 +33,24 @@ public class InstantiatesSingleton {
 }
         ]]></code>
     </test-code>
+
+<!--    TODO handle inner class being @Singleton and being instantiated in same file?-->
+    <test-code>
+        <description>Handles inner classes</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+package io.github.juliantcook.pmdrules.lang.java.rule.injection.directlyinstantiatedsingleton;
+
+public class Foo {
+    public Foo() {
+        new Something();
+    }
+
+    @Singleton
+    public static class Something {
+
+    }
+}
+        ]]></code>
+    </test-code>
 </test-data>
