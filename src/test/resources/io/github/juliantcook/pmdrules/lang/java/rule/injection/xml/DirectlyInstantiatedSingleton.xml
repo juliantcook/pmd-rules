@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data
+        xmlns="http://pmd.sourceforge.net/rule-tests"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests http://pmd.sourceforge.net/rule-tests_1_0_0.xsd">
+
+    <test-code>
+        <description>Directly instantiating class annotated with @Singleton</description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+package io.github.juliantcook.pmdrules.lang.java.rule.injection.directlyinstantiatedsingleton;
+
+public class InstantiatesSingleton {
+    public void run() {
+        new SingletonClass();
+    }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>Injects class annotated with @Singleton</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+package io.github.juliantcook.pmdrules.lang.java.rule.injection.directlyinstantiatedsingleton;
+
+public class InstantiatesSingleton {
+    @Inject
+    public void run(SingletonClass singletonClass) {
+        Object o = new Object();
+        singletonClass.doSomething(o);
+    }
+}
+        ]]></code>
+    </test-code>
+</test-data>

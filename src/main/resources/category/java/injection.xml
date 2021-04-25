@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+
+<ruleset name="Dependency injection"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+
+    <description>
+        Rules for use with DI libraries such as Guice.
+    </description>
+
+    <rule name="DirectlyInstantiatedSingleton"
+          language="java"
+          since="6.2.0"
+          minimumLanguageVersion="1.5"
+          message="This class is designated as a Singleton and shouldn't be instantiated manually."
+          typeResolution="true"
+          class="io.github.juliantcook.pmdrules.lang.java.rule.injection.DirectlyInstantiatedSingletonRule">
+        <description>
+            Instantiation of classes annotated @Singleton should be instantiated by the dependency injection library.
+        </description>
+        <priority>1</priority>
+        <example>
+            <![CDATA[
+            @Singleton
+            public class FooSingleton {
+                public void execute() {
+                    //...
+                }
+            }
+
+            public class BarService {
+                public void execute() {
+                    // Naughty. This should be injected so the DI framework can handle ensuring only one instance is created
+                    new FooSingleton().execute();
+                }
+            }
+            ]]>
+        </example>
+    </rule>
+</ruleset>
