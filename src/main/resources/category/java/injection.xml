@@ -11,10 +11,8 @@
 
     <rule name="DirectlyInstantiatedSingleton"
           language="java"
-          since="6.2.0"
-          minimumLanguageVersion="1.5"
-          message="This class is designated as a Singleton and shouldn't be instantiated manually."
-          typeResolution="true"
+          minimumLanguageVersion="1.6"
+          message="{0} is designated as a Singleton and should not be instantiated manually."
           class="io.github.juliantcook.pmdrules.lang.java.rule.injection.DirectlyInstantiatedSingletonRule">
         <description>
             Instantiation of classes annotated @Singleton should be instantiated by the dependency injection library.

@@ -7,6 +7,9 @@
     <test-code>
         <description>Directly instantiating class annotated with @Singleton</description>
         <expected-problems>1</expected-problems>
+        <expected-messages>
+            <message>SingletonClass is designated as a Singleton and should not be instantiated manually.</message>
+        </expected-messages>
         <code><![CDATA[
 package io.github.juliantcook.pmdrules.lang.java.rule.injection.directlyinstantiatedsingleton;
 

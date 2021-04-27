@@ -12,7 +12,7 @@ public class DirectlyInstantiatedSingletonRule extends AbstractJavaRule {
         if (node.getType() == null) return data;
         for (Annotation annotation : node.getType().getAnnotations()) {
             if (annotation.toString().equals("@javax.inject.Singleton()")) {
-                addViolation(data, node, new Object[]{});
+                addViolation(data, node, new Object[]{node.getType().getSimpleName()});
             }
         }
         super.visit(node, data);
