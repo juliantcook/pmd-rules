@@ -5,7 +5,7 @@
 ```groovy
 apply plugin: 'pmd'
 sourceSets {
-    pmd {}
+    pmd
 }
 pmdRuntime 'io.github.juliantcook:pmd-rules:0.0.1-SNAPSHOT'
 pmd {
@@ -15,3 +15,5 @@ tasks['pmdMain'].doFirst {
     pmdClasspath += sourceSets.pmd.runtimeClasspath
 }
 ```
+
+[Rule docs](docs/rules.md)
