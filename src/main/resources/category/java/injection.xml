@@ -19,21 +19,21 @@
         </description>
         <priority>1</priority>
         <example>
-            <![CDATA[
-            @Singleton
-            public class FooSingleton {
-                public void execute() {
-                    //...
-                }
-            }
+<![CDATA[
+@Singleton
+public class FooSingleton {
+    public void execute() {
+        //...
+    }
+}
 
-            public class BarService {
-                public void execute() {
-                    // Naughty. This should be injected so the DI framework can handle ensuring only one instance is created
-                    new FooSingleton().execute();
-                }
-            }
-            ]]>
+public class BarService {
+    public void execute() {
+        // Naughty. This should be injected so the DI framework can handle ensuring only one instance is created
+        new FooSingleton().execute();
+    }
+}
+]]>
         </example>
     </rule>
 </ruleset>
