@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data
+        xmlns="http://pmd.sourceforge.net/rule-tests"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests http://pmd.sourceforge.net/rule-tests_1_0_0.xsd">
+
+    <test-code>
+        <description>Unnecessary @Inject</description>
+        <expected-problems>1</expected-problems>
+        <expected-linenumbers>6</expected-linenumbers>
+        <expected-messages>
+            <message>Unnecessary @Inject as no parameters are specified</message>
+        </expected-messages>
+        <code><![CDATA[
+package io.github.juliantcook.pmdrules.lang.java.rule.injection.unnecessaryinject;
+
+import javax.inject.Inject;
+
+public class SomeClass {
+    @Inject
+    public SomeClass() {
+    }
+}
+        ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>Required @Inject</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+package io.github.juliantcook.pmdrules.lang.java.rule.injection.unnecessaryinject;
+
+import javax.inject.Inject;
+
+public class SomeClass {
+    @Inject
+    public SomeClass(Dependency dependency) {
+    }
+}
+        ]]></code>
+    </test-code>
+</test-data>

@@ -36,4 +36,29 @@ public class BarService {
 ]]>
         </example>
     </rule>
+    <rule name="UnnecessaryInject"
+          language="java"
+          message="Unnecessary @Inject as no parameters are specified"
+          class="net.sourceforge.pmd.lang.rule.XPathRule">
+        <priority>3</priority>
+        <properties>
+            <property name="version" value="2.0"/>
+            <property name="xpath">
+                <value>
+<![CDATA[
+    //MarkerAnnotation/Name[@Image='Inject']
+    [./ancestor::ClassOrInterfaceBodyDeclaration/*/FormalParameters[@Size=0]]
+]]>
+                </value>
+            </property>
+        </properties>
+        <example>
+public class SomeClass {
+
+    @Inject // This is unnecessary.
+    public SomeClass() {
+    }
+}
+        </example>
+    </rule>
 </ruleset>

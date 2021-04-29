@@ -32,3 +32,31 @@ public class BarService {
 <rule ref="category/java/injection.xml/DirectlyInstantiatedSingleton" />
 ```
 
+## UnnecessaryInject
+
+**Priority:** Medium (3)
+
+
+
+**This rule is defined by the following XPath expression:**
+``` xpath
+//MarkerAnnotation/Name[@Image='Inject']
+    [./ancestor::ClassOrInterfaceBodyDeclaration/*/FormalParameters[@Size=0]]
+```
+
+**Example(s):**
+
+``` java
+public class SomeClass {
+
+    @Inject // This is unnecessary.
+    public SomeClass() {
+    }
+}
+```
+
+**Use this rule by referencing it:**
+``` xml
+<rule ref="category/java/injection.xml/UnnecessaryInject" />
+```
+
