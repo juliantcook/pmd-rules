@@ -14,6 +14,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -68,12 +70,33 @@ public class RuleDocGenerator {
         return Arrays.asList(s.split("\r\n|\n"));
     }
 
-    public List<List<String>> generateRuleSetMarkdown(List<RuleSet> rulesets) {
+    static class Output {
+        private final OutputStream outputStream;
+        private Output(OutputStream outputStream) {
+            this.outputStream = outputStream;
+        }
+
+        private void addAll(List<String> lines) {
+            for (var line : lines) {
+                add(line);
+            }
+        }
+
+        private void add(String line) {
+            try {
+                outputStream.write((line + "\n").getBytes());
+                outputStream.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void generateRuleSetMarkdown(List<RuleSet> rulesets, OutputStream outputStream) {
+        var lines = new Output(outputStream);
         var languageTersename = "java";
-        var markdowns = new ArrayList<List<String>>();
         for (RuleSet ruleset : rulesets) {
             String rulesetFilename = RuleSetUtils.getRuleSetFilename(ruleset);
-            List<String> lines = new LinkedList<>();
             lines.add("---");
             for (Rule rule : getSortedRules(ruleset)) {
                 lines.add("## " + rule.getName());
@@ -213,9 +236,7 @@ public class RuleDocGenerator {
                     lines.add("");
                 }
             }
-            markdowns.add(lines);
         }
-        return markdowns;
     }
 
     private XPathRule asXPathRule(Rule rule) {

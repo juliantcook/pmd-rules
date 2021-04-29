@@ -1,7 +1,6 @@
 package io.github.juliantcook.pmdrules;
 
 import java.nio.file.FileSystems;
-import java.util.List;
 
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
@@ -13,17 +12,13 @@ public class GenerateDocs {
             System.exit(1);
         }
         long start = System.currentTimeMillis();
-        RuleDocGenerator generator = new RuleDocGenerator();
         var rulesFolder = args[0];
         var ruleFiles = FileSystems.getDefault().getPath(rulesFolder)
                 .toAbsolutePath().normalize().toFile().list();
         var filesPaths = stream(ruleFiles).map(f -> rulesFolder + f).collect(toList());
+        var generator = new RuleDocGenerator();
         var rulesets = generator.resolveRulesets(filesPaths);
-        var markdowns = generator.generateRuleSetMarkdown(rulesets);
-        for (List<String> markdown : markdowns) {
-            markdown.forEach(System.out::println);
-        }
-
+        generator.generateRuleSetMarkdown(rulesets, System.out);
         System.err.println("Generated docs in " + (System.currentTimeMillis() - start) + " ms");
     }
 }
