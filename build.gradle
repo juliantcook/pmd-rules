@@ -31,8 +31,9 @@ test {
 
 task generateRuleDocs(type: JavaExec) {
     doFirst { standardOutput(new FileOutputStream("${project.rootDir}/docs/rules.md")) }
-    classpath = sourceSets.docGen.runtimeClasspath
-    main = 'io.github.juliantcook.pmdrules.GenerateDocs'
+    classpath sourceSets.docGen.runtimeClasspath
+    main 'io.github.juliantcook.pmdrules.GenerateDocs'
+    systemProperty 'SOURCE_ROOT_LINK', 'https://github.com/juliantcook/pmd-rules/blob/master/src/main/java/'
     args "${project.rootDir}/src/main/resources/category/java/"
 }
 
