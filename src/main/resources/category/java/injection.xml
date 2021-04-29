@@ -15,7 +15,7 @@
           message="{0} is designated as a Singleton and should not be instantiated manually."
           class="io.github.juliantcook.pmdrules.lang.java.rule.injection.DirectlyInstantiatedSingletonRule">
         <description>
-            Instantiation of classes annotated @Singleton should be instantiated by the dependency injection library.
+            Classes annotated @Singleton should be instantiated by the dependency injection library.
         </description>
         <priority>1</priority>
         <example>
