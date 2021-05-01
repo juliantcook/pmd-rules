@@ -38,6 +38,11 @@ task generateRuleDocs(type: JavaExec) {
     args "${project.rootDir}/src/main/resources/category/java/"
 }
 
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
 publishing {
     publications {
         maven(MavenPublication) {
