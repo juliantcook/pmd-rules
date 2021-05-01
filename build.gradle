@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'maven-publish'
+    id 'signing'
 }
 
 group 'io.github.juliantcook'
@@ -40,10 +41,46 @@ task generateRuleDocs(type: JavaExec) {
 publishing {
     publications {
         maven(MavenPublication) {
-            groupId = project.group
-            artifactId = project.name
-            version = project.version
             from components.java
+            pom {
+                name = "${project.group}:${project.name}"
+                description = 'Some custom PMD rules'
+                url = 'https://juliantcook.github.io/pmd-rules/'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'jcook'
+                        name = 'Julian Cook'
+                        email = 'juliantcook@gmail.com'
+                        organizationUrl = 'https://github.com/juliantcook'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com:juliantcook/pmd-rules.git'
+                    developerConnection = 'scm:git:ssh://github.com:juliantcook/pmd-rules.git'
+                    url = 'https://github.com/juliantcook/pmd-rules'
+                }
+            }
         }
     }
+    repositories {
+        maven {
+            def releasesRepoUrl = 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+            def snapshotsRepoUrl = 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+            credentials {
+                username 'jcook'
+                password ossrhPassword
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.maven
 }
