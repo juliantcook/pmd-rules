@@ -1,6 +1,8 @@
 ## Usage
 
-Add PMD plugin:
+### With PMD Gradle plugin
+
+Add [PMD plugin](https://docs.gradle.org/current/userguide/pmd_plugin.html):
 
 `build.gradle`
 ```groovy
@@ -17,9 +19,11 @@ Add this library to the PMD classpath:
 sourceSets {
     pmd
 }
-pmdRuntime 'io.github.juliantcook:pmd-rules:0.0.1-SNAPSHOT'
+dependencies {
+    pmdRuntime 'io.github.juliantcook:pmd-rules:0.0.1'
+}
 // set classpath for appropriate PMD tasks
-tasks['pmdMain'].doFirst {
+tasks.pmdMain.doFirst {
     pmdClasspath += sourceSets.pmd.runtimeClasspath
 }
 ```

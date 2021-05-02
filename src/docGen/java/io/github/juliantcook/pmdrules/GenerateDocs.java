@@ -5,6 +5,10 @@ import java.nio.file.FileSystems;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
 
+/**
+ * This has been extracted from https://github.com/pmd/pmd/blob/master/pmd-doc/src/main/java/net/sourceforge/pmd/docs/GenerateRuleDocsCmd.java
+ * and modified in order to output given rules as markdown to standard out stream.
+ */
 public class GenerateDocs {
     public static void main(String[] args) {
         if (args.length != 1) {
